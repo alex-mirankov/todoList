@@ -1,0 +1,16 @@
+.container-input {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 20px auto;
+    border: 1px solid lightgrey;
+    height: 50px;
+}
+
+.login-input {
+    border: none;
+    width: 90%;
+    outline: none;
+    padding-left: 20px;
+    font-size: 1.28rem;
+}

@@ -1,0 +1,30 @@
+.button-submit {
+    background: #ad2f19;
+    color: white;
+    border: 1px #ad2f19 solid;
+    border-radius: 5px;
+    outline: none;
+
+    width: 60%;
+    height: 40px;
+
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.container-button {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.button {
+    cursor: pointer;
+}
+
+.button-reset {
+    background: inherit;
+    color: #ad2f19;
+    border: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+}

@@ -1,0 +1,8 @@
+.header-content {
+    display: flex;
+    width: 100%;
+    height: 70px;
+    justify-content: space-between;
+    background: #ad2e19;
+    color: white;
+}
