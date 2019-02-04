@@ -7,11 +7,13 @@ class LoginControlComponent extends React.Component {
             <div className="container-button">
                 <button
                     className="button button-submit"
+                    onClick={this.props.signIn}
                 >
                     Sign In
                 </button>
                 <button
                     className="button button-reset"
+                    onClick={this.props.reset}
                 >
                     Reset Password?
                 </button>

@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.css';
+import history from '../../history';
 
 import LoginHeaderComponent from '../../components/login-header-component/loginHeaderComponent';
 import LoginControlComponent from '../../components/login-control-component/loginControlComponent';
@@ -14,16 +15,35 @@ export class LoginContainer extends React.Component {
         this.state = {
 
         };
+
+        this.signIn = this.signIn.bind(this);
+        this.reset = this.reset.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    signIn() {
+        history.push('/home');
+    }
+
+    reset() {
+        console.log('reset');
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
     }
 
     render() {
         return (
             <div className="page">
-                <form className="form-login">
+                <form
+                    className="form-login"
+                    onSubmit={this.handleSubmit}
+                >
                     <LoginHeaderComponent />
                     <LoginUserComponent />
                     <LoginPasswordComponent />
-                    <LoginControlComponent />
+                    <LoginControlComponent signIn={this.signIn} reset={this.reset}/>
                 </form>
             </div>
         );
