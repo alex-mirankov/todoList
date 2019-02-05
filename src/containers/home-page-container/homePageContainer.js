@@ -1,6 +1,10 @@
 import React from 'react';
+import './style.css'
 
-export class HomePageContainer extends React.Component {
+import HomeHeaderComponent from '../../components/home-header/homeHeaderComponent';
+import HomeToDoListContainer from '../home-todo-list-container/homeToDoListContainer';
+
+class HomePageContainer extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -8,8 +12,11 @@ export class HomePageContainer extends React.Component {
     render() {
         return(
             <div className="page-home">
-                <h1>Home</h1>
+                <HomeHeaderComponent />
+                <HomeToDoListContainer />
             </div>
         );
     }
 }
+
+export default HomePageContainer;

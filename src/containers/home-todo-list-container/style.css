@@ -1,0 +1,19 @@
+.todo-main {
+    width: 100%;
+    height: 500px;
+    display: flex;
+}
+
+.todo-list-container {
+    width: 75%;
+    background: #f2f0f3;
+    height: auto;
+    padding: 15px;
+}
+
+.container-todo-item {
+    background: white;
+    border-radius: 15px;
+    width: 100%;
+    height: 100%;
+}

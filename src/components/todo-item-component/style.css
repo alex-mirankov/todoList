@@ -1,0 +1,8 @@
+.container-item {
+    display: flex;
+}
+
+.item-check {
+    width: 25px;
+    height: 25px;
+}

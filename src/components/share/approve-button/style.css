@@ -1,0 +1,11 @@
+.button-control {
+    width: 25px;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+}
+
+.button-approve {
+    background: #6eb44c;
+    color: white;
+}

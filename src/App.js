@@ -5,8 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { Store } from './store';
 
-import { HomePageContainer } from '../src/containers/home-page-container/homePageContainer';
-import { LoginContainer } from '../src/containers/login-container/loginContainer';
+import { Main } from '../src/containers/main-container/Main';
 
 class App extends Component {
   constructor(props) {
@@ -15,12 +14,9 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <Switch>
-          <Route path='/home' component={HomePageContainer} />
-          <Route path='/' component={LoginContainer} />
-        </Switch>
-      </React.Fragment>
+      <Provider store={Store}>
+        <Main />
+      </Provider>
     );
   }
 }

@@ -1,9 +1,16 @@
 import React from 'react';
+import './style.css';
 
-export class ApproveButton extends React.Component {
+class ApproveButton extends React.Component {
     render() {
-        return(
-            <div></div>
+        return (
+            <div>
+                <button className="button-control button-approve">
+                    <i className="fas fa-check"></i>
+                </button>
+            </div>
         );
     }
 }
+
+export default ApproveButton;

@@ -1,9 +1,14 @@
 import React from 'react';
+import './style.css';
 
-export class HomeSideComponent extends React.Component {
+class HomeSideComponent extends React.Component {
     render() {
         return(
-            <div></div>
+            <div className="chat-component">
+                
+            </div>
         );
     }
 }
+
+export default HomeSideComponent;

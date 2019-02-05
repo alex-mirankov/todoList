@@ -1,9 +1,16 @@
 import React from 'react';
+import './style.css';
 
-export class EditButton extends React.Component {
+class EditButton extends React.Component {
     render() {
-        return(
-            <div></div>
+        return (
+            <div>
+                <button className="button-control button-edit">
+                    <i className="fas fa-pencil-alt"></i>
+                </button>
+            </div>
         );
     }
 }
+
+export default EditButton;

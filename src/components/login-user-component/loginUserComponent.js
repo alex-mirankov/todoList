@@ -9,6 +9,7 @@ class LoginUserComponent extends React.Component {
                     <input
                         placeholder="Username"
                         className="login-input"
+                        onChange={this.props.handlerUserNameInput}
                     />
                     <i
                         className="icon-input fas fa-user"
