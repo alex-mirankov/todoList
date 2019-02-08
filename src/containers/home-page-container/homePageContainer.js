@@ -1,6 +1,8 @@
 import React from 'react';
 import './style.css'
 
+import { connect } from 'react-redux';
+
 import HomeHeaderComponent from '../../components/home-header/homeHeaderComponent';
 import HomeToDoListContainer from '../home-todo-list-container/homeToDoListContainer';
 
@@ -12,11 +14,20 @@ class HomePageContainer extends React.Component {
     render() {
         return(
             <div className="page-home">
-                <HomeHeaderComponent />
+                <HomeHeaderComponent
+                    userName={this.props.userName}
+                />
                 <HomeToDoListContainer />
             </div>
         );
     }
 }
 
-export default HomePageContainer;
+const mapStateToProps = (state) => {
+    let userName = state.user.user;
+    return {
+        userName
+    };
+};
+
+export const HomePage = connect(mapStateToProps)(HomePageContainer);

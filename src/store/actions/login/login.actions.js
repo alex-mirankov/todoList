@@ -1,4 +1,4 @@
-import { LOG_IN, LOG_OUT, VERIFY } from './';
+import { LOG_IN, LOG_OUT, VERIFY } from './login.types';
 
 export function logIn(payload) {
     return {
@@ -7,12 +7,12 @@ export function logIn(payload) {
     }
 }
 
-/*export function verifyUser(payload) {
+export function verifyUser(payload) {
     return {
         type: VERIFY,
         payload
     }
-}*/
+}
 
 export function logOut() {
     return {

@@ -2,8 +2,8 @@ import React from 'react';
 import './style.css';
 import { connect } from 'react-redux';
 
-import HomePageContainer from '../home-page-container/homePageContainer';
-import LoginContainer from '../login-container/loginContainer';
+import { HomePage } from '../home-page-container/homePageContainer';
+import { Login } from '../login-container/loginContainer';
 
 class MainContainer extends React.Component {
     constructor(props) {
@@ -15,7 +15,7 @@ class MainContainer extends React.Component {
         return (
             <React.Fragment>
                 {
-                    !!userName ? <HomePageContainer /> : <LoginContainer />
+                    !!userName ? <Login /> : <HomePage />
                 }
             </React.Fragment>
         );
@@ -27,6 +27,6 @@ const mapStateToProps = (state) => {
     return {
         userName
     };
-}
+};
 
 export const Main = connect(mapStateToProps)(MainContainer);

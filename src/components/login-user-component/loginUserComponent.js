@@ -9,6 +9,7 @@ class LoginUserComponent extends React.Component {
                     <input
                         placeholder="Username"
                         className="login-input"
+                        type="text"
                         onChange={this.props.handlerUserNameInput}
                     />
                     <i

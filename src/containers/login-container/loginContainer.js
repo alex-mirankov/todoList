@@ -3,6 +3,7 @@ import './style.css';
 import history from '../../history';
 import { connect } from 'react-redux';
 import { logIn } from '../../store/actions/login/login.actions';
+import { logOut } from '../../store/actions/login/login.actions';
 
 import LoginHeaderComponent from '../../components/login-header-component/loginHeaderComponent';
 import LoginControlComponent from '../../components/login-control-component/loginControlComponent';
@@ -10,7 +11,7 @@ import LoginPasswordComponent from '../../components/login-password-component/lo
 import LoginUserComponent from '../../components/login-user-component/loginUserComponent';
 
 
-class LoginContainer extends React.Component {
+export class LoginContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -31,12 +32,12 @@ class LoginContainer extends React.Component {
         });
     }
 
-    signIn() {
-        history.push('/home');
+    signIn = () => {
+        this.props.setUser(this.state.name);
     }
 
-    reset() {
-        console.log('reset');
+    reset = () => {
+        this.props.unSetUser();
     }
 
     handleSubmit(e) {
@@ -51,21 +52,22 @@ class LoginContainer extends React.Component {
                     onSubmit={this.handleSubmit}
                 >
                     <LoginHeaderComponent />
-                    <LoginUserComponent handlerUserNameInput={this.handlerUserNameInput}/>
+                    <LoginUserComponent handlerUserNameInput={this.handlerUserNameInput} />
                     <LoginPasswordComponent />
-                    <LoginControlComponent signIn={this.signIn} reset={this.reset}/>
+                    <LoginControlComponent signIn={this.signIn} reset={this.reset} />
                 </form>
             </div>
         );
     };
 }
 
-export default LoginContainer;
+const mapDispatchToProps = (dispatch) => ({
+    setUser: (user) => {
+        dispatch(logIn(user));
+    },
+    unSetUser: () => {
+        dispatch(logOut());
+    }
+});
 
-    /*const mapDispatchToProps = (dispatch) => ({
-        handlerUserNameInput: (user) => {
-            dispatch(logIn(user));
-        }
-    });
-
-    export const Login = connect(mapDispatchToProps)(LoginContainer);*/
+export const Login = connect(null, mapDispatchToProps)(LoginContainer);

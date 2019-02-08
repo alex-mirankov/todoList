@@ -1,0 +1,13 @@
+.todo-input-container {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.todo-input {
+    outline: none;
+    height: 80%;
+    border: none;
+}

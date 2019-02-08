@@ -9,6 +9,7 @@ class LoginPasswordComponent extends React.Component {
                     <input
                         placeholder="Password"
                         className="login-input"
+                        type="password"
                     />
                     <i
                         className="icon-input fas fa-lock"
