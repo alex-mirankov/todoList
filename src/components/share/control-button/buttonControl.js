@@ -10,6 +10,7 @@ class ButtonControl extends React.Component {
                 <button
                     className="button-control button-approve"
                     style={{backgroundColor: color}}
+                    onClick={this.props.action}
                 >
                     {this.props.content}
                 </button>
