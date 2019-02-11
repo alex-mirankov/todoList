@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import './style.css';
 
 import HomeSideComponent from '../../components/home-side/home-side-component';
@@ -14,7 +15,7 @@ const HomeToDoListContainer = ({ todos, onTodoClick }) => (
                 <ToDoInputComponent />
                 <ul>
                     {
-                        todos.map(todo => 
+                        todos.map(todo =>
                             <ToDOItemComponent
                                 key={todo.id}
                                 {...todo}
@@ -39,4 +40,8 @@ HomeToDoListContainer.propTypes = {
     onTodoClick: PropTypes.func.isRequired
 }
 
-export default HomeToDoListContainer;
+export default connect(
+    (state) => ({
+        todos: state.rootReducer.todos,
+    })
+)(HomeToDoListContainer);

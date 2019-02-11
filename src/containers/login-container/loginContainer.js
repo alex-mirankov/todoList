@@ -1,6 +1,5 @@
 import React from 'react';
 import './style.css';
-import history from '../../history';
 import { connect } from 'react-redux';
 import { logIn } from '../../store/actions/login/login.actions';
 import { logOut } from '../../store/actions/login/login.actions';

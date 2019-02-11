@@ -9,8 +9,12 @@ import EditButton from '../share/edit-button/editButton';
 const ToDOItemComponent = ({ onClick, completed, text }) => (
     <li className="container-item">
         <input className="item-check" type="checkbox" />
-        <p onClick={onClick}>{text}</p>
-        style={{textDecoration: completed ? 'line-through' : 'none'}}
+        <p
+            onClick={onClick}
+        >
+            {text}
+        </p>
+        style={{ textDecoration: completed ? 'line-through' : 'none' }}
         <ApproveButton />
         <EditButton />
         <DeleteButton />

@@ -2,6 +2,7 @@ import React from 'react';
 import './style.css'
 
 import { connect } from 'react-redux';
+import { logOut } from '../../store/actions/login/login.actions';
 
 import HomeHeaderComponent from '../../components/home-header/homeHeaderComponent';
 import HomeToDoListContainer from '../home-todo-list-container/homeToDoListContainer';
@@ -12,7 +13,7 @@ class HomePageContainer extends React.Component {
     }
 
     render() {
-        return(
+        return (
             <div className="page-home">
                 <HomeHeaderComponent />
                 <HomeToDoListContainer />
@@ -28,4 +29,10 @@ const mapStateToProps = (state) => {
     };
 };
 
-export const HomePage = connect(mapStateToProps)(HomePageContainer);
+const mapDispatchToProps = (dispatch) => ({
+    unSetUser: () => {
+        dispatch(logOut());
+    }
+});
+
+export const HomePage = connect(mapStateToProps, mapDispatchToProps)(HomePageContainer);

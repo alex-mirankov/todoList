@@ -15,7 +15,7 @@ class MainContainer extends React.Component {
         return (
             <React.Fragment>
                 {
-                    !!userName ? <Login /> : <HomePage />
+                    !!userName ? <HomePage /> : <Login />
                 }
             </React.Fragment>
         );

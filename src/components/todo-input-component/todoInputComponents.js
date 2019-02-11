@@ -21,7 +21,7 @@ let ToDoInputComponent = ({ dispatch }) => {
                         type="text"
                         className="todo-input"
                         placeholder="add todo"
-                        ref={node => 
+                        ref={node =>
                             (input = node)
                         }
                     />
