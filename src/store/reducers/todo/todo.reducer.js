@@ -1,4 +1,4 @@
-import { ADD_TODO, TOGGLE_TODO } from '../../actions'
+import { ADD_TODO, TOGGLE_TODO, DELETE_TODO } from '../../actions'
 
 const todos = (state = [], action) => {
     switch (action.type) {
@@ -17,6 +17,15 @@ const todos = (state = [], action) => {
                 ? {...todo, completed: !todo.completed}
                 : todo
             )
+        case 'DELETE_TODO':
+                return [
+                    ...state,
+                    {
+                        todos: state.filter((todo) => {
+                            return todo.id !== action.id
+                        })
+                    }
+                ]
         default:
             return state
     }

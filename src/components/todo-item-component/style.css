@@ -1,8 +1,15 @@
 .container-item {
     display: flex;
+    border-bottom: 2px dotted lightgray;
+    width: 97%;
+    margin: 10px auto;
 }
 
 .item-check {
     width: 25px;
     height: 25px;
+}
+
+.item-text {
+    width: 90%;
 }

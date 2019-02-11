@@ -6,28 +6,34 @@ import './style.css';
 import HomeSideComponent from '../../components/home-side/home-side-component';
 import ToDOItemComponent from '../../components/todo-item-component/todoItemComponent';
 import ToDoInputComponent from '../../components/todo-input-component/todoInputComponents';
+import { toggleTodo } from '../../store/actions';
 
-const HomeToDoListContainer = ({ todos, onTodoClick }) => (
-    <div className="todo-main">
-        <HomeSideComponent />
-        <div className="todo-list-container">
-            <div className="container-todo-item">
-                <ToDoInputComponent />
-                <ul>
-                    {
-                        todos.map(todo =>
-                            <ToDOItemComponent
-                                key={todo.id}
-                                {...todo}
-                                onClick={() => onTodoClick(todo.id)}
-                            />
-                        )
-                    }
-                </ul>
+class HomeToDoListContainer extends React.Component {
+    render() {
+        let {todos, onTodoClick} = this.props;
+        return (
+            <div className="todo-main">
+                <HomeSideComponent />
+                <div className="todo-list-container">
+                    <div className="container-todo-item">
+                        <ToDoInputComponent />
+                        <ul>
+                            {
+                                todos.map(todo =>
+                                    <ToDOItemComponent
+                                        key={todo.id}
+                                        {...todo}
+                                        onClick={() => onTodoClick(todo.id)}
+                                    />
+                                )
+                            }
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-)
+        )
+    }
+}
 
 HomeToDoListContainer.propTypes = {
     todos: PropTypes.arrayOf(
@@ -40,8 +46,14 @@ HomeToDoListContainer.propTypes = {
     onTodoClick: PropTypes.func.isRequired
 }
 
+const mapDispacthToProps = (dispatch) => ({
+    onTodoClick: (id) => {
+        dispatch(toggleTodo(id));
+    },
+})
+
 export default connect(
     (state) => ({
         todos: state.rootReducer.todos,
-    })
+    }), mapDispacthToProps
 )(HomeToDoListContainer);

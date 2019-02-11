@@ -2,22 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-import ApproveButton from '../share/approve-button/approveButton';
-import DeleteButton from '../share/delete-button/deleteButton';
-import EditButton from '../share/edit-button/editButton';
+import { connect } from 'react-redux';
+import { deleteTodo } from '../../store/actions/todo/todo.actions';
 
-const ToDOItemComponent = ({ onClick, completed, text }) => (
+import ButtonControl from '../share/control-button/buttonControl';
+
+const ToDOItemComponent = ({ text, }) => (
     <li className="container-item">
         <input className="item-check" type="checkbox" />
         <p
-            onClick={onClick}
+            className="item-text"
         >
             {text}
         </p>
-        style={{ textDecoration: completed ? 'line-through' : 'none' }}
-        <ApproveButton />
-        <EditButton />
-        <DeleteButton />
+        <ButtonControl content={<i className="fas fa-check"></i>} color='#71b346' />
+        <ButtonControl content={<i className="fas fa-pencil-alt"></i>} color='#63b8a9'/>
+        <ButtonControl content={<i className="fas fa-trash-alt"></i>} color='#f16b5e'/>
     </li>
 )
 
@@ -27,4 +27,4 @@ ToDOItemComponent.propTypes = {
     text: PropTypes.string.isRequired
 }
 
-export default ToDOItemComponent;
+export default connect()(ToDOItemComponent);
