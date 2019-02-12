@@ -2,7 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './style.css';
 
+import { showChat, showTodo } from '../../store/actions/side/side.actions';
+
 class HomeSideComponent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.showToDoList = this.showToDoList.bind(this);
+        this.showChat = this.showChat.bind(this);
+    }
+
+    showToDoList() {
+        this.props.showTodo();
+    }
+
+    showChat() {
+        this.props.showChat();
+    }
+
     render() {
         let { visible } = this.props;
         return (
@@ -11,12 +28,18 @@ class HomeSideComponent extends React.Component {
                     visible ?
                         <div className="chat-component">
                             <p className="chat-content">
-                            <button className="chat-item">
+                            <button
+                                className="chat-item"
+                                onClick={this.showToDoList}
+                            >
                                 Todo List
                             </button>
                             </p>
                             <p className="chat-content">
-                            <button className="chat-item">
+                            <button
+                                className="chat-item"
+                                onClick={this.showChat}
+                            >
                                 Chat
                             </button>
                             </p>
@@ -35,4 +58,13 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(HomeSideComponent);
+const mapDispatchToProps = (dispatch) => ({
+    showTodo: () => {
+        dispatch(showTodo());
+    },
+    showChat: () => {
+        dispatch(showChat());
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeSideComponent);
