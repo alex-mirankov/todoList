@@ -22,12 +22,6 @@ class HomePageContainer extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    let userName = state.user.user;
-    return {
-        userName
-    };
-};
 
 const mapDispatchToProps = (dispatch) => ({
     unSetUser: () => {
@@ -35,4 +29,4 @@ const mapDispatchToProps = (dispatch) => ({
     }
 });
 
-export const HomePage = connect(mapStateToProps, mapDispatchToProps)(HomePageContainer);
+export const HomePage = connect(null, mapDispatchToProps)(HomePageContainer);

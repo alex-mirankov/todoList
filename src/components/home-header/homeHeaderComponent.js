@@ -3,29 +3,67 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './style.css';
 
-const HomeHeaderComponent = ({ user }) => (
-    <div className="home-header">
-        <p>React App</p>
-        <button>
-            <i className="fas fa-bars"></i>
-        </button>
-        <button>
-            <i className="fas fa-comment"></i>
-        </button>
-        <button>
-            <i className="far fa-envelope"></i>
-        </button>
-        <p>{user}</p>
-    </div>
-)
+import { toggleSide } from '../../store/actions/side/side.actions';
 
-HomeHeaderComponent.propTypes = {
-    user: PropTypes.string.isRequired
+import HeaderButton from '../share/header-button/headerButton';
+
+class HomeHeaderComponent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.hideSide = this.hideSide.bind(this);
+    }
+
+    hideSide() {
+        this.props.hideSideItem();
+    }
+
+    render() {
+        let { user, counter } = this.props;
+        return (
+            <div className="home-header">
+                <div className="menu-home">
+                    <HeaderButton
+                        content={<i className="fas header-icons fa-bars"></i>}
+                        border="none"
+                        action={this.hideSide}
+                    />
+                    <p className="app-name">React App</p>
+                </div>
+                <div className="info-home">
+                    <div className="control-home">
+                        <HeaderButton
+                            content={<i className="fas header-icons fa-comment"></i>}
+                            counter={<span className="counter">{counter.count}</span>}
+                        />
+                        <HeaderButton
+                            content={<i className="far header-icons fa-envelope"></i>}
+                        />
+                    </div>
+                    <p className="user-name">{user}</p>
+                </div>
+            </div >
+        )
+    }
 }
 
-export default connect(
-    (state) => ({
+HomeHeaderComponent.propTypes = {
+    user: PropTypes.string.isRequired,
+    count: PropTypes.number.isRequired
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    hideSideItem: () => {
+        dispatch(toggleSide());
+    }
+})
+
+const mapStateToProps = (state) => {
+    return {
         user: state.user.user,
-    })
-)(HomeHeaderComponent);
+        counter: state.rootReducer.counter
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeHeaderComponent);
 

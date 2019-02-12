@@ -1,4 +1,4 @@
-import { ADD_TODO, SET_VISIBILITY_FILTER, TOGGLE_TODO, DELETE_TODO } from './todo.types';
+import { ADD_TODO, TOGGLE_TODO, DELETE_TODO, UPDATE_TODO, COUNT_TODO } from './todo.types';
 
 let nextToDoId = 0;
 
@@ -6,7 +6,7 @@ export const addTodo = (text) => {
     return {
         type: ADD_TODO,
         id: nextToDoId++,
-        text
+        text,
     }
 }
 
@@ -17,10 +17,17 @@ export const deleteTodo = (id) => {
     }
 }
 
-export const setVisibility = (filter) => {
+export const updateTodo = (id, text) => {
     return {
-        type: SET_VISIBILITY_FILTER,
-        filter
+        type: UPDATE_TODO,
+        id,
+        text: text
+    }
+}
+
+export const countToDo = () => {
+    return {
+        type: COUNT_TODO,
     }
 }
 

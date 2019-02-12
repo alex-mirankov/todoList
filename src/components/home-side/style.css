@@ -3,3 +3,17 @@
     width: 25%;
     height: 100%;
 }
+
+.chat-item {
+    font-size: 26px;
+    color: white;
+    border: none;
+    background: inherit;
+    cursor: pointer;
+    outline: none;
+}
+
+.chat-content {
+    margin-left: 20px;
+    margin-top: 10px;
+}

@@ -1,3 +1,48 @@
 .home-header {
     display: flex;
+    height: 60px;
+    padding: 5px;
+}
+
+.menu-home {
+    display: flex;
+    width: 25%
+}
+
+.info-home {
+    display: flex;
+    width: 75%;
+    justify-content: space-between;
+    margin-right: 40px;
+}
+
+.control-home {
+    display: flex;
+    width: 10%;
+    justify-content: space-between;
+}
+
+.user-name {
+    font-size: 20px;
+    margin-top: 5px;
+}
+
+.app-name {
+    font-size: 25px;
+    margin-top: 5px;
+    margin-left: 45px;
+}
+
+.header-icons {
+    font-size: 30px;
+}
+
+.counter {
+    background: #9cc86b;
+    padding: 5px 10px;
+    border-radius: 50px;
+    color: white;
+    position: absolute;
+    top: -5px;
+    right: -15px;
 }

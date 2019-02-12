@@ -13,3 +13,15 @@
 .item-text {
     width: 90%;
 }
+
+.content-update-item {
+    display: flex;
+}
+
+.done-item {
+    width: 2%;
+}
+
+.like-icon {
+    color: rgb(126, 204, 10) !important;
+}

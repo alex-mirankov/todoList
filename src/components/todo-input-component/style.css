@@ -10,3 +10,18 @@
     height: 80%;
     border: none;
 }
+
+.input-new-value {
+    outline: none;
+}
+
+.add-task-button {
+    width: 150px;
+    height: 30px;
+    background: #72b14c;
+    color: white;
+    border: 1px #72b14c solid;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
