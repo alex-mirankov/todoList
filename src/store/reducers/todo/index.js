@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import todos from './todo.reducer';
-import visibilityFilter from './filter.reducer';
+import counter from './count.reducer';
+import side from '../side/side.reducer';
 
 export default combineReducers({
     todos,
-    visibilityFilter
+    counter,
+    side
 });
