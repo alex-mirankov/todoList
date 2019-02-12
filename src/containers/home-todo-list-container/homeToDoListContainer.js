@@ -10,25 +10,22 @@ import { toggleTodo } from '../../store/actions';
 
 class HomeToDoListContainer extends React.Component {
     render() {
-        let {todos, onTodoClick} = this.props;
+        let { todos, onTodoClick } = this.props;
         return (
-            <div className="todo-main">
-                <HomeSideComponent />
-                <div className="todo-list-container">
-                    <div className="container-todo-item">
-                        <ToDoInputComponent />
-                        <ul>
-                            {
-                                todos.map(todo =>
-                                    <ToDOItemComponent
-                                        key={todo.id}
-                                        {...todo}
-                                        onClick={() => onTodoClick(todo.id)}
-                                    />
-                                )
-                            }
-                        </ul>
-                    </div>
+            <div className="todo-list-container">
+                <div className="container-todo-item">
+                    <ToDoInputComponent />
+                    <ul>
+                        {
+                            todos.map(todo =>
+                                <ToDOItemComponent
+                                    key={todo.id}
+                                    {...todo}
+                                    onClick={() => onTodoClick(todo.id)}
+                                />
+                            )
+                        }
+                    </ul>
                 </div>
             </div>
         )

@@ -6,6 +6,7 @@ import { logOut } from '../../store/actions/login/login.actions';
 
 import HomeHeaderComponent from '../../components/home-header/homeHeaderComponent';
 import HomeToDoListContainer from '../home-todo-list-container/homeToDoListContainer';
+import HomeSideComponent from '../../components/home-side/home-side-component';
 
 class HomePageContainer extends React.Component {
     constructor(props) {
@@ -16,7 +17,11 @@ class HomePageContainer extends React.Component {
         return (
             <div className="page-home">
                 <HomeHeaderComponent />
-                <HomeToDoListContainer />
+                <div className="todo-main">
+                    <HomeSideComponent />
+                    <HomeToDoListContainer />
+                </div>
+
             </div>
         );
     }
