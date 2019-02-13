@@ -13,6 +13,7 @@ class ChatContainer extends React.Component {
             message: '',
         }
         this.writeNewPost = this.writeNewPost.bind(this);
+        this.deleteAllMessages = this.deleteAllMessages.bind(this);
     }
 
     componentDidMount() {
@@ -21,15 +22,25 @@ class ChatContainer extends React.Component {
             this.setState({
                 message: snapshot.val()
             })
-            console.log(snapshot.val());
         });
-        
+
     }
 
     writeNewPost(mes) {
-        /*firebase.database().ref('folder').set({
+        firebase.database().ref('listOfMessages').child('first').set({
             message: mes,
-        });*/
+        });
+    }
+
+    deleteAllMessages() {
+        var adaRef = firebase.database().ref('listOfMessages');
+        adaRef.remove()
+            .then(function () {
+                console.log("Remove succeeded.")
+            })
+            .catch(function (error) {
+                console.log("Remove failed: " + error.message)
+            });
     }
 
     render() {
@@ -44,6 +55,12 @@ class ChatContainer extends React.Component {
                         {this.state.message}
                     </div>
                     <div className="chat-sending">
+                        <button
+                            className="chat-delete-all chat-buttons"
+                            onClick={this.deleteAllMessages}
+                        >
+                            Delete All
+                        </button>
                         <input
                             type="text"
                             placeholder="Write a message..."
@@ -52,10 +69,12 @@ class ChatContainer extends React.Component {
                                 (input = node)
                             }}
                         />
-                        <button className="chat-send" onClick={() => {
-                            this.writeNewPost(input.value);
-                            input.value = ''
-                        }}>
+                        <button
+                            className="chat-send chat-buttons"
+                            onClick={() => {
+                                this.writeNewPost(input.value);
+                                input.value = ''
+                            }}>
                             Send
                         </button>
                     </div>

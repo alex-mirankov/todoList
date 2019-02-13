@@ -37,23 +37,31 @@ h2 {
 }
 
 .chat-send {
-    width: 10%;
-    font-size: 25px;
-    height: 80%;
     background: rgb(9, 189, 9);
-    color: white;
     border: 1px solid rgb(9, 189, 9);
-    border-radius: 10px;
-    outline: none;
-    cursor: pointer;
-    margin-top: 5px;
 }
 
 .chat-input {
-    width: 85%;
+    width: 75%;
     border-radius: 10px;
     height: 30px;
     border: 1px white solid;
     outline: none;
     margin-top: 7px;
+}
+
+.chat-buttons {
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+    margin-top: 5px;
+    color: white;
+    width: 10%;
+    font-size: 25px;
+    height: 80%;
+}
+
+.chat-delete-all {
+    background: rgb(211, 9, 9);
+    border: 1px solid rgb(211, 9, 9);
 }
