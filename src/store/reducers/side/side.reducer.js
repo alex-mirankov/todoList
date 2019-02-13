@@ -2,7 +2,7 @@ import { TOGGLE_SIDE, SHOW_CHAT, SHOW_TODO } from '../../actions/side/side.types
 
 const initialState = {
     toggle: true,
-    showTodo: false,
+    showTodo: true,
     showChat: false,
 }
 
@@ -16,14 +16,14 @@ const side = (state = initialState, action) => {
             }
         case SHOW_CHAT:
             return {
-                showChat: !state.showChat,
-                showTodo: state.showTodo,
+                showChat: true,
+                showTodo: false,
                 toggle: state.toggle,
             }
         case SHOW_TODO:
             return {
-                showChat: state.showChat,
-                showTodo: !state.showTodo,
+                showChat: false,
+                showTodo: true,
                 toggle: state.toggle,
             }
         default:
