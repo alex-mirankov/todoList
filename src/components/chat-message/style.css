@@ -1,0 +1,18 @@
+.message-container {
+    padding: 5px;
+    background: rgb(82, 154, 236);
+    border-radius: 10px;
+}
+
+.nickName-content {
+    font-style: italic;
+    margin-right: 5px;
+}
+
+.message-content {
+    color: white;
+}
+
+.message-block {
+    margin-top: 20px;
+}

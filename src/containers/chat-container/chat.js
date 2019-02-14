@@ -1,7 +1,12 @@
 import React from 'react';
 import './style.css';
+
+import ChatMessageComponent from '../../components/chat-message/chatMessage';
+
 import firebase from 'firebase';
+import { connect } from 'react-redux';
 import { config } from '../../constants/config';
+import { getAllMessages } from '../../store/actions/chat/chat.action';
 firebase.initializeApp(config);
 
 class ChatContainer extends React.Component {
@@ -10,41 +15,53 @@ class ChatContainer extends React.Component {
         super(props);
 
         this.state = {
-            message: '',
+            display: 'none',
+            messages: [],
         }
-        this.writeNewPost = this.writeNewPost.bind(this);
+
+        this.sendMessage = this.sendMessage.bind(this);
         this.deleteAllMessages = this.deleteAllMessages.bind(this);
     }
 
     componentDidMount() {
         var starCountRef = firebase.database().ref('listOfMessages');
-        starCountRef.on('value', (snapshot) => {
+        starCountRef.on('value', snapshot => {
             this.setState({
-                message: snapshot.val()
-            })
+                messages: snapshot.val(),
+            });
         });
-
     }
 
-    writeNewPost(mes) {
-        firebase.database().ref('listOfMessages').child('first').set({
-            message: mes,
-        });
+    sendMessage(mes) {
+        this.props.saveMessageToRedux();
+        let newId = "0";
+        if (this.props.id === 0) {
+            firebase.database().ref('listOfMessages/' + newId).set({
+                author: '',
+                message: '',
+            });
+        }
+        else {
+            firebase.database().ref('listOfMessages/' + this.props.id).set({
+                author: this.props.user,
+                message: mes,
+            });
+        }
+
     }
 
     deleteAllMessages() {
+        let key;
         var adaRef = firebase.database().ref('listOfMessages');
-        adaRef.remove()
-            .then(function () {
-                console.log("Remove succeeded.")
-            })
-            .catch(function (error) {
-                console.log("Remove failed: " + error.message)
-            });
+        for (var i = 1; i < this.props.id; i++) {
+            key = String(i);
+            adaRef.child(key).remove();
+        }
     }
 
     render() {
         let input;
+        let { user, id } = this.props;
         return (
             <div className="chat-container">
                 <div className="chat-main">
@@ -52,7 +69,24 @@ class ChatContainer extends React.Component {
                         <h2 className="chat-header">Chat</h2>
                     </div>
                     <div className="chat-messages">
-                        {this.state.message}
+                        {
+                            id === 0 ?
+                                <React.Fragment></React.Fragment>
+                                : this.state.messages.length === 1 ?
+                                    this.state.messages.map(item =>
+                                        <ChatMessageComponent
+                                            displayStyle={this.state.display}
+                                            name={user}
+                                            message={item.message}
+                                        />,
+
+                                    ) : this.state.messages.map(item =>
+                                        <ChatMessageComponent
+                                            displayStyle={this.state.display}
+                                            name={user}
+                                            message={item.message}
+                                        />)
+                        }
                     </div>
                     <div className="chat-sending">
                         <button
@@ -72,7 +106,7 @@ class ChatContainer extends React.Component {
                         <button
                             className="chat-send chat-buttons"
                             onClick={() => {
-                                this.writeNewPost(input.value);
+                                this.sendMessage(input.value);
                                 input.value = ''
                             }}>
                             Send
@@ -84,4 +118,15 @@ class ChatContainer extends React.Component {
     }
 }
 
-export default ChatContainer;
+const mapDispatchToProps = (dispatch) => ({
+    saveMessageToRedux: () => {
+        dispatch(getAllMessages())
+    }
+})
+
+const mapStateToProps = (state) => ({
+    user: state.user.user,
+    id: state.chat.countMessages,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatContainer);
