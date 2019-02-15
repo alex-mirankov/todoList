@@ -19,7 +19,7 @@ class HomeHeaderComponent extends React.Component {
     }
 
     render() {
-        let { user, counter } = this.props;
+        let { user, counter, counterMessages } = this.props;
         return (
             <div className="home-header">
                 <div className="menu-home">
@@ -38,6 +38,7 @@ class HomeHeaderComponent extends React.Component {
                         />
                         <HeaderButton
                             content={<i className="far header-icons fa-envelope"></i>}
+                            counter={<span className="counter counter-messages">{counterMessages}</span>}
                         />
                     </div>
                     <p className="user-name">{user}</p>
@@ -61,7 +62,8 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => {
     return {
         user: state.user.user,
-        counter: state.rootReducer.counter
+        counter: state.rootReducer.counter,
+        counterMessages: state.chat.countMessages,
     }
 }
 

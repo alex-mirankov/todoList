@@ -4,7 +4,7 @@ import './style.css';
 class ChatMessageComponent extends React.Component {
     render() {
         return (
-            <div className="message-block" style={{display: this.props.displayStyle}}>
+            <div className="message-block">
                 <span className="message-container">
                     <span className="nickName-content">
                         {this.props.name}

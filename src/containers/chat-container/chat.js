@@ -6,7 +6,7 @@ import ChatMessageComponent from '../../components/chat-message/chatMessage';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
 import { config } from '../../constants/config';
-import { getAllMessages } from '../../store/actions/chat/chat.action';
+import { getAllMessages, saveMessage, deleteAll } from '../../store/actions/chat/chat.action';
 firebase.initializeApp(config);
 
 class ChatContainer extends React.Component {
@@ -15,7 +15,6 @@ class ChatContainer extends React.Component {
         super(props);
 
         this.state = {
-            display: 'none',
             messages: [],
         }
 
@@ -28,15 +27,15 @@ class ChatContainer extends React.Component {
         starCountRef.on('value', snapshot => {
             this.setState({
                 messages: snapshot.val(),
-            });
+            })
+            this.props.getArrayMessages(snapshot.val(), snapshot.val().length);
         });
     }
 
     sendMessage(mes) {
-        this.props.saveMessageToRedux();
-        let newId = "0";
+        let nullId = "0";
         if (this.props.id === 0) {
-            firebase.database().ref('listOfMessages/' + newId).set({
+            firebase.database().ref('listOfMessages/' + nullId).set({
                 author: '',
                 message: '',
             });
@@ -46,22 +45,23 @@ class ChatContainer extends React.Component {
                 author: this.props.user,
                 message: mes,
             });
+            this.props.saveMessage(mes)
         }
-
     }
 
     deleteAllMessages() {
         let key;
         var adaRef = firebase.database().ref('listOfMessages');
-        for (var i = 1; i < this.props.id; i++) {
+        for (var i = 1; i < this.props.arrayMess.length; i++) {
             key = String(i);
             adaRef.child(key).remove();
         }
+        this.props.deleteFromRedux();
     }
 
     render() {
         let input;
-        let { user, id } = this.props;
+        let { user, arrayMess } = this.props;
         return (
             <div className="chat-container">
                 <div className="chat-main">
@@ -70,22 +70,12 @@ class ChatContainer extends React.Component {
                     </div>
                     <div className="chat-messages">
                         {
-                            id === 0 ?
-                                <React.Fragment></React.Fragment>
-                                : this.state.messages.length === 1 ?
-                                    this.state.messages.map(item =>
-                                        <ChatMessageComponent
-                                            displayStyle={this.state.display}
-                                            name={user}
-                                            message={item.message}
-                                        />,
-
-                                    ) : this.state.messages.map(item =>
-                                        <ChatMessageComponent
-                                            displayStyle={this.state.display}
-                                            name={user}
-                                            message={item.message}
-                                        />)
+                            arrayMess.map(i => 
+                                    <ChatMessageComponent
+                                        name={user}
+                                        message={i.message}
+                                    />
+                                )
                         }
                     </div>
                     <div className="chat-sending">
@@ -119,14 +109,21 @@ class ChatContainer extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    saveMessageToRedux: () => {
-        dispatch(getAllMessages())
+    saveMessage: (mes) => {
+        dispatch(saveMessage(mes))
+    },
+    getArrayMessages: (value, length) => {
+        dispatch(getAllMessages(value, length))
+    },
+    deleteFromRedux: () => {
+        dispatch(deleteAll())
     }
 })
 
 const mapStateToProps = (state) => ({
     user: state.user.user,
     id: state.chat.countMessages,
+    arrayMess: state.chat.messages,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatContainer);
