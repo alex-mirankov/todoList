@@ -4,7 +4,7 @@ import './style.css';
 class ChatMessageComponent extends React.Component {
     render() {
         return (
-            <div className="message-block">
+            <div className="message-block" style={{display: 'flex', justifyContent: this.props.styles}}>
                 <span className="message-container">
                     <span className="nickName-content">
                         {this.props.name}

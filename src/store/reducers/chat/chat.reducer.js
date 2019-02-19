@@ -1,24 +1,30 @@
-import { GET_ALL_MESSAGES, SET_MESSAGES, DELETE_ALL } from '../../actions/chat/chat.types';
+import { GET_ALL_MESSAGES_ADMIN, GET_ALL_MESSAGES_USER, DELETE_ALL } from '../../actions/chat/chat.types';
 
 const initialState = {
     countMessages: 1,
-    messages: []
+    messagesAdmin: [],
+    messagesUser: []
 };
 
 const chat = (state = initialState, action) => {
     switch (action.type) {
-        case GET_ALL_MESSAGES:
+        case GET_ALL_MESSAGES_ADMIN:
             return {
-                messages: action.payload,
+                messagesUser: state.messagesUser,
+                messagesAdmin: action.payload,
                 countMessages: action.length,
             }
-        case SET_MESSAGES:
+        case GET_ALL_MESSAGES_USER:
             return {
-                messages: action.mes,
+                messagesAdmin: state.messagesAdmin,
+                messagesUser: action.payload,
+                countMessages: action.length,
             }
         case DELETE_ALL:
             return {
-                countMessages: 0,
+                messagesAdmin: [],
+                messagesUser: [],
+                countMessages: 1,
             }
         default:
             return state
