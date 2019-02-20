@@ -1,10 +1,16 @@
 @media (min-width: 320px) and (max-width: 800px) {
     .home-header {
-        height: 120px !important;
+        height: 13vh !important;
         display: block !important;
     }
     .menu-home {
         width: 100% !important;
+    }
+    .todo-main {
+        height: 87vh !important;
+    }
+    .chat-main {
+        height: 85vh !important;
     }
     .info-home {
         width: 90% !important;
@@ -20,6 +26,12 @@
     .add-task-button {
         width: 100% !important;
         margin-top: 20px;
+    }
+    .chat-item {
+        font-size: 16px !important;
+    }
+    .chat-component {
+        min-width: 100px !important;
     }
 }
 

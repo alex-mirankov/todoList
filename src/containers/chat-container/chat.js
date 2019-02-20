@@ -25,45 +25,23 @@ class ChatContainer extends React.Component {
     componentDidMount() {
         var connectToDataBaseAdmin = firebase.database().ref('listOfMessages/admin');
         connectToDataBaseAdmin.on('value', snapshot => {
-            this.props.getArrayMessagesAdmin(Object.values(snapshot.val()), snapshot.val().length);
+            this.props.getArrayMessagesAdmin(Object.values(snapshot.val()), snapshot.val().length, this.props.user);
         });
-        var connectToDataBaseUser = firebase.database().ref('listOfMessages/user');
-        connectToDataBaseUser.on('value', snapshot => {
-            this.props.getArrayMessagesUser(Object.values(snapshot.val()), snapshot.val().length);
-        });
-        console.log(this.props.arrayMessAdmin);
-        console.log(this.props.arrayMessUser);
     }
 
-    sendMessage(mes, userName) {
+    sendMessage(mes) {
         let nullId = "0";
-        if (userName === 'admin') {
-            if (this.props.id === 0) {
-                firebase.database().ref('listOfMessages/admin/' + nullId).set({
-                    author: '',
-                    message: '',
-                });
-            }
-            else {
-                firebase.database().ref('listOfMessages/admin/' + this.props.id).set({
-                    author: this.props.user,
-                    message: mes,
-                });
-            }
+        if (this.props.id === 0) {
+            firebase.database().ref('listOfMessages/admin/' + nullId).set({
+                author: '',
+                message: '',
+            });
         }
-        if (userName === 'user') {
-            if (this.props.id === 0) {
-                firebase.database().ref('listOfMessages/user/' + nullId).set({
-                    author: '',
-                    message: '',
-                });
-            }
-            else {
-                firebase.database().ref('listOfMessages/user/' + this.props.id).set({
-                    author: 'user',
-                    message: mes,
-                });
-            }
+        else {
+            firebase.database().ref('listOfMessages/admin/' + this.props.id).set({
+                author: this.props.user,
+                message: mes,
+            });
         }
     }
 
@@ -74,18 +52,12 @@ class ChatContainer extends React.Component {
             keyAdmin = String(i);
             adminRef.child(keyAdmin).remove();
         }
-        let keyUser;
-        var userRef = firebase.database().ref('listOfMessages/user');
-        for (let i = 1; i < this.props.arrayMessUser.length; i++) {
-            keyUser = String(i);
-            userRef.child(keyUser).remove();
-        }
         this.props.deleteFromRedux();
     }
 
     render() {
         let input;
-        let { user, arrayMessAdmin, arrayMessUser } = this.props;
+        let { user, arrayMessAdmin } = this.props;
         return (
             <div className="chat-container">
                 <div className="chat-main">
@@ -95,19 +67,25 @@ class ChatContainer extends React.Component {
                     <div className="chat-messages">
                         {
                             arrayMessAdmin.map(i =>
+                                i.author === '' ?
                                 <ChatMessageComponent
-                                    name={user}
-                                    message={i.message}
-                                />
-                            )
-                        }
-                        {
-                            arrayMessUser.map(i =>
-                                <ChatMessageComponent
-                                    styles={'flex-end'}
-                                    name={user}
-                                    message={i.message}
-                                />
+                                        styles={'flex-end'}
+                                        display={'none'}
+                                        name={i.author}
+                                        message={i.message}
+                                    />
+                                : i.author === user ?
+                                    <ChatMessageComponent
+                                        styles={'flex-end'}
+                                        display={'flex'}
+                                        name={i.author}
+                                        message={i.message}
+                                    />
+                                    : <ChatMessageComponent
+                                        name={i.author}
+                                        display={'flex'}
+                                        message={i.message}
+                                    />
                             )
                         }
                     </div>
@@ -129,7 +107,7 @@ class ChatContainer extends React.Component {
                         <button
                             className="chat-send chat-buttons"
                             onClick={() => {
-                                this.sendMessage(input.value, 'user');
+                                this.sendMessage(input.value, 'admin');
                                 input.value = ''
                             }}>
                             Send
@@ -142,11 +120,8 @@ class ChatContainer extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getArrayMessagesAdmin: (value, length) => {
-        dispatch(getAllMessagesAdmin(value, length))
-    },
-    getArrayMessagesUser: (value, length) => {
-        dispatch(getAllMessagesUser(value, length))
+    getArrayMessagesAdmin: (value, length, user) => {
+        dispatch(getAllMessagesAdmin(value, length, user))
     },
     deleteFromRedux: () => {
         dispatch(deleteAll())
@@ -157,7 +132,6 @@ const mapStateToProps = (state) => ({
     user: state.user.user,
     id: state.chat.countMessages,
     arrayMessAdmin: state.chat.messagesAdmin,
-    arrayMessUser: state.chat.messagesUser,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatContainer);

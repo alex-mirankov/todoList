@@ -1,18 +1,11 @@
-import { GET_ALL_MESSAGES_ADMIN, GET_ALL_MESSAGES_USER, DELETE_ALL } from './chat.types';
+import { GET_ALL_MESSAGES_ADMIN, DELETE_ALL } from './chat.types';
 
-export const getAllMessagesAdmin = (payload, length) => {
+export const getAllMessagesAdmin = (payload, length, user) => {
     return {
         type: GET_ALL_MESSAGES_ADMIN,
         payload,
-        length
-    }
-}
-
-export const getAllMessagesUser = (payload, length) => {
-    return {
-        type: GET_ALL_MESSAGES_USER,
-        payload,
-        length
+        length,
+        user
     }
 }
 

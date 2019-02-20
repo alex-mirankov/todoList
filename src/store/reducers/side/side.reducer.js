@@ -1,7 +1,7 @@
 import { TOGGLE_SIDE, SHOW_CHAT, SHOW_TODO } from '../../actions/side/side.types';
 
 const initialState = {
-    toggle: true,
+    toggle: false,
     showTodo: true,
     showChat: false,
 }
