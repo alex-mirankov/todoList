@@ -1,9 +1,10 @@
 .page-home {
     width: 100%;
+    height: 100vh;
 }
 
 .todo-main {
     width: 100%;
-    height: 500px;
+    height: 93vh;
     display: flex;
 }
