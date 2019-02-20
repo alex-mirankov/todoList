@@ -29,6 +29,7 @@ h2 {
     padding-top: 20px;
     padding-right: 20px;
     height: 87%;
+    overflow-y: auto;
 }
 
 .chat-sending {

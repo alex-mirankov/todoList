@@ -27,6 +27,7 @@ class ToDoInputComponent extends React.Component {
                             ref={node =>
                                 (input = node)
                             }
+                            maxLength="20"
                         />
                         <button
                             className="add-task-button"

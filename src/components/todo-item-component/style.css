@@ -12,6 +12,9 @@
 
 .item-text {
     width: 90%;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .content-update-item {
