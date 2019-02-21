@@ -18,13 +18,13 @@ const side = (state = initialState, action) => {
             return {
                 showChat: true,
                 showTodo: false,
-                toggle: state.toggle,
+                toggle: false,
             }
         case SHOW_TODO:
             return {
                 showChat: false,
                 showTodo: true,
-                toggle: state.toggle,
+                toggle: false,
             }
         default:
             return state

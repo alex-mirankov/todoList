@@ -1,11 +1,18 @@
-import { GET_ALL_MESSAGES_ADMIN, DELETE_ALL } from './chat.types';
+import { GET_ALL_MESSAGES_ADMIN, DELETE_ALL, MESSAGE_COUNTER } from './chat.types';
 
 export const getAllMessagesAdmin = (payload, length, user) => {
     return {
         type: GET_ALL_MESSAGES_ADMIN,
         payload,
         length,
-        user
+        user,
+    }
+}
+
+export const counterMessages = (payload) => {
+    return {
+        type: MESSAGE_COUNTER,
+        payload,
     }
 }
 

@@ -6,7 +6,7 @@ import ChatMessageComponent from '../../components/chat-message/chatMessage';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
 import { config } from '../../constants/config';
-import { getAllMessagesAdmin, getAllMessagesUser, deleteAll } from '../../store/actions/chat/chat.action';
+import { getAllMessagesAdmin, deleteAll, counterMessages } from '../../store/actions/chat/chat.action';
 firebase.initializeApp(config);
 
 class ChatContainer extends React.Component {
@@ -25,7 +25,14 @@ class ChatContainer extends React.Component {
     componentDidMount() {
         var connectToDataBaseAdmin = firebase.database().ref('listOfMessages/admin');
         connectToDataBaseAdmin.on('value', snapshot => {
-            this.props.getArrayMessagesAdmin(Object.values(snapshot.val()), snapshot.val().length, this.props.user);
+            let array = [];
+            for (let key in snapshot.val()) {
+                if (snapshot.val()[key].author !== this.props.user) {
+                    array.push(snapshot.val());
+                }
+            }
+            this.props.countMessages(array.length-1);
+            this.props.getArrayMessagesAdmin(Object.values(snapshot.val()), Object.values(snapshot.val()).length, this.props.user);
         });
     }
 
@@ -68,24 +75,24 @@ class ChatContainer extends React.Component {
                         {
                             arrayMessAdmin.map(i =>
                                 i.author === '' ?
-                                <ChatMessageComponent
+                                    <ChatMessageComponent
                                         styles={'flex-end'}
                                         display={'none'}
                                         name={i.author}
                                         message={i.message}
                                     />
-                                : i.author === user ?
-                                    <ChatMessageComponent
-                                        styles={'flex-end'}
-                                        display={'flex'}
-                                        name={i.author}
-                                        message={i.message}
-                                    />
-                                    : <ChatMessageComponent
-                                        name={i.author}
-                                        display={'flex'}
-                                        message={i.message}
-                                    />
+                                    : i.author === user ?
+                                        <ChatMessageComponent
+                                            styles={'flex-end'}
+                                            display={'flex'}
+                                            name={i.author}
+                                            message={i.message}
+                                        />
+                                        : <ChatMessageComponent
+                                            name={i.author}
+                                            display={'flex'}
+                                            message={i.message}
+                                        />
                             )
                         }
                     </div>
@@ -94,7 +101,7 @@ class ChatContainer extends React.Component {
                             className="chat-delete-all chat-buttons"
                             onClick={this.deleteAllMessages}
                         >
-                            Delete All
+                            <i className="fas fa-trash-alt"></i>
                         </button>
                         <input
                             type="text"
@@ -110,7 +117,7 @@ class ChatContainer extends React.Component {
                                 this.sendMessage(input.value, 'admin');
                                 input.value = ''
                             }}>
-                            Send
+                            <i className="fas fa-paper-plane"></i>
                         </button>
                     </div>
                 </div>
@@ -125,12 +132,16 @@ const mapDispatchToProps = (dispatch) => ({
     },
     deleteFromRedux: () => {
         dispatch(deleteAll())
+    },
+    countMessages: (val) => {
+        dispatch(counterMessages(val));
     }
 })
 
 const mapStateToProps = (state) => ({
     user: state.user.user,
     id: state.chat.countMessages,
+    count: state.chat.count,
     arrayMessAdmin: state.chat.messagesAdmin,
 })
 

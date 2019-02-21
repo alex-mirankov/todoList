@@ -33,7 +33,7 @@ class HomeHeaderComponent extends React.Component {
                 <div className="info-home">
                     <div className="control-home">
                         <HeaderButton
-                            content={<i className="fas header-icons fa-comment"></i>}
+                            content={<i className="fas header-icons fa-list-ul"></i>}
                             counter={<span className="counter">{counter.count}</span>}
                         />
                         <HeaderButton
@@ -63,7 +63,7 @@ const mapStateToProps = (state) => {
     return {
         user: state.user.user,
         counter: state.rootReducer.counter,
-        counterMessages: state.chat.countMessages,
+        counterMessages: state.chat.count,
     }
 }
 

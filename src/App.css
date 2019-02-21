@@ -31,10 +31,6 @@
   }
 }
 
-#root {
-  min-width: 320px !important;
-}
-
 p {
   margin: 0;
   padding: 0;
