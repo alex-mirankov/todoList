@@ -1,8 +1,7 @@
 import React from 'react';
 import './style.css';
 import { connect } from 'react-redux';
-import { logIn } from '../../store/actions/login/login.actions';
-import { logOut } from '../../store/actions/login/login.actions';
+import { logIn, logOut } from '../../store/actions/login/login.actions';
 
 import LoginHeaderComponent from '../../components/login-header-component/loginHeaderComponent';
 import LoginControlComponent from '../../components/login-control-component/loginControlComponent';
@@ -31,8 +30,9 @@ export class LoginContainer extends React.Component {
         });
     }
 
-    signIn = () => {
+    signIn() {
         this.props.setUser(this.state.name);
+        localStorage.setItem('login', this.state.name);
     }
 
     reset = () => {

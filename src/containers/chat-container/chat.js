@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.css';
 
+import PropTypes from 'prop-types';
 import ChatMessageComponent from '../../components/chat-message/chatMessage';
 
 import firebase from 'firebase';
@@ -31,7 +32,7 @@ class ChatContainer extends React.Component {
                     array.push(snapshot.val());
                 }
             }
-            this.props.countMessages(array.length-1);
+            this.props.countMessages(array.length - 1);
             this.props.getArrayMessagesAdmin(Object.values(snapshot.val()), Object.values(snapshot.val()).length, this.props.user);
         });
     }
@@ -112,9 +113,10 @@ class ChatContainer extends React.Component {
                             }}
                         />
                         <button
+                            type="submit"
                             className="chat-send chat-buttons"
                             onClick={() => {
-                                this.sendMessage(input.value, 'admin');
+                                this.sendMessage(input.value);
                                 input.value = ''
                             }}>
                             <i className="fas fa-paper-plane"></i>
@@ -124,6 +126,17 @@ class ChatContainer extends React.Component {
             </div>
         )
     }
+}
+
+ChatContainer.propTypes = {
+    user: PropTypes.string.isRequired,
+    arrayMessAdmin: PropTypes.arrayOf(
+        PropTypes.shape({
+            author: PropTypes.string.isRequired,
+            message: PropTypes.string.isRequired,
+        }).isRequired
+    ).isRequired,
+    id: PropTypes.number.isRequired,
 }
 
 const mapDispatchToProps = (dispatch) => ({

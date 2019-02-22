@@ -3,6 +3,7 @@ import { LOG_IN, LOG_OUT } from '../../actions';
 const initialState = {
     state: 'INITIAL',
     user: '',
+    logout: false,
 };
 
 export function loginReducer(state = initialState, action) {
@@ -16,6 +17,7 @@ export function loginReducer(state = initialState, action) {
             return {
                 state,
                 user: '',
+                logout: true,
             }
         default:
             return state;

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 import { toggleSide } from '../../store/actions/side/side.actions';
+import { logOut } from '../../store/actions/login/login.actions';
 
 import HeaderButton from '../share/header-button/headerButton';
 
@@ -12,6 +13,12 @@ class HomeHeaderComponent extends React.Component {
         super(props);
 
         this.hideSide = this.hideSide.bind(this);
+        this.logOut = this.logOut.bind(this);
+    }
+
+    logOut() {
+        localStorage.setItem('login', '');
+        this.props.logOutRedux();
     }
 
     hideSide() {
@@ -19,7 +26,7 @@ class HomeHeaderComponent extends React.Component {
     }
 
     render() {
-        let { user, counter, counterMessages } = this.props;
+        let { counter, counterMessages } = this.props;
         return (
             <div className="home-header">
                 <div className="menu-home">
@@ -41,7 +48,15 @@ class HomeHeaderComponent extends React.Component {
                             counter={<span className="counter counter-messages">{counterMessages}</span>}
                         />
                     </div>
-                    <p className="user-name">{user}</p>
+                    <p className="user-name">
+                        {localStorage.getItem('login')}
+                        <button
+                            className="button-logout"
+                            onClick={this.logOut}
+                        >
+                            Log Out
+                        </button>
+                    </p>
                 </div>
             </div >
         )
@@ -49,13 +64,16 @@ class HomeHeaderComponent extends React.Component {
 }
 
 HomeHeaderComponent.propTypes = {
-    user: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired
+    counterMessages: PropTypes.number.isRequired,
+    counter: PropTypes.number.isRequired
 }
 
 const mapDispatchToProps = (dispatch) => ({
     hideSideItem: () => {
         dispatch(toggleSide());
+    },
+    logOutRedux: () => {
+        dispatch(logOut());
     }
 })
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './style.css';
 
@@ -50,6 +51,10 @@ class HomeSideComponent extends React.Component {
 
         );
     }
+}
+
+HomeSideComponent.propTypes = {
+    visible: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = (state) => {

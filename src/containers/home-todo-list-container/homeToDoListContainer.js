@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './style.css';
 
-import HomeSideComponent from '../../components/home-side/home-side-component';
 import ToDOItemComponent from '../../components/todo-item-component/todoItemComponent';
 import ToDoInputComponent from '../../components/todo-input-component/todoInputComponents';
 import { toggleTodo } from '../../store/actions';

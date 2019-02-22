@@ -1,31 +1,32 @@
 import React from 'react';
 import './style.css';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { HomePage } from '../home-page-container/homePageContainer';
 import { Login } from '../login-container/loginContainer';
 
 class MainContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
-        let { userName } = this.props;
+        let { logout } = this.props;
         return (
             <React.Fragment>
                 {
-                    !!userName ? <HomePage /> : <Login />
+                    logout ? <Login /> : <HomePage />
                 }
             </React.Fragment>
         );
     }
 }
 
+MainContainer.propTypes = {
+    logout: PropTypes.bool.isRequired,
+}
+
 const mapStateToProps = (state) => {
-    let userName = state.user.user;
+    let logout = state.user.logout;
     return {
-        userName
+        logout
     };
 };
 

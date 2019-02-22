@@ -1,8 +1,9 @@
 import React from 'react';
 import './style.css'
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { logOut } from '../../store/actions/login/login.actions';
+import { logOut, logIn } from '../../store/actions/login/login.actions';
 
 import HomeHeaderComponent from '../../components/home-header/homeHeaderComponent';
 import HomeToDoListContainer from '../home-todo-list-container/homeToDoListContainer';
@@ -10,8 +11,9 @@ import HomeSideComponent from '../../components/home-side/home-side-component';
 import ChatContainer from '../chat-container/chat';
 
 class HomePageContainer extends React.Component {
-    constructor(props) {
-        super(props);
+
+    componentDidMount() {
+        this.props.login(localStorage.getItem('login'))
     }
 
     render() {
@@ -23,15 +25,19 @@ class HomePageContainer extends React.Component {
                     <HomeSideComponent />
                     {
                         visibleChat ?
-                        <ChatContainer />
-                        : visibleTodo ? <HomeToDoListContainer />
-                        : <React.Fragment></React.Fragment>
+                            <ChatContainer />
+                            : visibleTodo ? <HomeToDoListContainer />
+                                : <React.Fragment></React.Fragment>
                     }
                 </div>
-
             </div>
         );
     }
+}
+
+HomePageContainer.propTypes = {
+    visibleChat: PropTypes.bool.isRequired,
+    visibleTodo: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = (state) => {
@@ -44,6 +50,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     unSetUser: () => {
         dispatch(logOut());
+    },
+    login: (val) => {
+        dispatch(logIn(val));
     }
 });
 

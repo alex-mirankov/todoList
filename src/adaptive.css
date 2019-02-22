@@ -2,6 +2,7 @@
     .home-header {
         height: 13vh !important;
         display: block !important;
+        min-height: 100px;
     }
     .menu-home {
         width: 100% !important;
@@ -16,6 +17,9 @@
         width: 90% !important;
         margin-left: 10px;
         margin-top: 10px;
+    }
+    .chat-input {
+        height: auto !important;
     }
     .control-home {
         width: 20% !important;

@@ -1,4 +1,4 @@
-import { ADD_TODO, TOGGLE_TODO, DELETE_TODO, UPDATE_TODO, COUNT_TODO } from './todo.types';
+import { ADD_TODO, TOGGLE_TODO, DELETE_TODO, UPDATE_TODO } from './todo.types';
 
 let nextToDoId = 0;
 
@@ -22,12 +22,6 @@ export const updateTodo = (id, text) => {
         type: UPDATE_TODO,
         id,
         text: text
-    }
-}
-
-export const countToDo = () => {
-    return {
-        type: COUNT_TODO,
     }
 }
 

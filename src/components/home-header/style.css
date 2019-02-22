@@ -51,3 +51,13 @@
 .counter-messages {
     background: #e62416;
 }
+
+.button-logout {
+    background: inherit;
+    border: 1px lightgrey solid;
+    border-radius: 5px;
+    outline: none;
+    padding: 5px;
+    cursor: pointer;
+    margin-left: 5px;
+}
